@@ -1,25 +1,26 @@
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+public class main {
+    public static void main(String[] args) throws Exception {
 
-/**
- *
- * @author vicen
- */
-public class App {
-    public static void main(String[]args){
-        ArrayList<String> usuario=new ArrayList<String>();
-        ArrayList<String> senha=new ArrayList<String>();
-        Scanner in=new Scanner(System.in);
-        int x=0;
-        x = in.nextInt();
-        System.out.println(x);
-        
+        ArrayList<Opcao_de_cadastro> usuario = new ArrayList<Opcao_de_cadastro>();
+        ArrayList<Opcao_de_cadastro> senha = new ArrayList<Opcao_de_cadastro>();
+        Scanner in = new Scanner(System.in);
+
+        String em, se;
+        em = in.nextLine();
+        se = in.nextLine();
+
+        Opcao_de_cadastro cl = new Opcao_de_cadastro(em, se);
+        usuario.add(cl);
+
+        Iterator<Opcao_de_cadastro> it = usuario.iterator();
+
+        while(it.hasNext()) {
+            System.out.println(it.next().getPassword());
+        }
+
     }
-    
 }
