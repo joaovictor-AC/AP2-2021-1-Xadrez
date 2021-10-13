@@ -1,34 +1,33 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Cadastro {
+public class Perfil {
 
-    public void cadastrar(List<Cliente> clientes, Scanner in) {
-        Cliente cliente;
-        String nome, cpf, telefone, endereco, email, senha;
-        email = "";
-        int idade;
+    public void editar(List<Cliente> clientes, Scanner in, Cliente cl) {
+
         boolean email_correto;
         email_correto = false;
-        idade = 0;
+        String email;
+        email = null;
 
         System.out.print("Nome: ");
-        nome = in.nextLine();
+        cl.setNome(in.nextLine());
         System.out.print("Idade: ");
-        idade = in.nextInt();
+        cl.setIdade(in.nextInt());
         System.out.print("CPF: ");
         in.nextLine();
-        cpf = in.nextLine();
+        cl.setCpf(in.nextLine());
         System.out.print("Telefone: ");
-        telefone = in.nextLine();
+        cl.setTelefone(in.nextLine());
         System.out.print("Endereço: ");
-        endereco = in.nextLine();
+        cl.setEndereco(in.nextLine());
 
         while (!email_correto) {
 
             email_correto = true;
 
-            System.out.print("Email: ");
+            System.out.print("Novo email: ");
             email = in.nextLine();
             if (clientes.size() == 0) {
                 email_correto = true;
@@ -45,14 +44,12 @@ public class Cadastro {
             }
 
         }
-        System.out.print("Senha: ");
-        senha = in.nextLine();
 
-        cliente = new Cliente(email, senha, nome, idade, endereco, cpf, telefone);
-        clientes.add(cliente);
+        cl.setEmail(email);
 
-        System.out.println(cliente.toString());
-        System.out.println(clientes);
+        System.out.print("Nova senha: ");
+        cl.setSenha(in.nextLine());
+        System.out.println();
 
     }
 

@@ -7,6 +7,7 @@ public class Cliente {
     private String endereco;
     private String cpf;
     private String telefone;
+    private int quarto;
 
     public Cliente(String email, String senha, String nome, int idade, String endereco, String cpf, String telefone) {
         this.email = email;
@@ -16,6 +17,7 @@ public class Cliente {
         this.endereco = endereco;
         this.cpf = cpf;
         this.telefone = telefone;
+        this.quarto = 0;
     }
 
     public String getEmail() {
@@ -74,12 +76,18 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente [cpf=" + cpf + ", email=" + email + ", endereco=" + endereco + ", idade=" + idade + ", nome="
-                + nome + ", senha=" + senha + ", telefone=" + telefone + "]";
+    public int getQuarto() {
+        return quarto;
     }
 
-    
+    public void setQuarto(int quarto) {
+        this.quarto = quarto;
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + this.nome + "\nIdade: " + this.idade + "\nTelefone: " + this.telefone + "\nCPF: " + this.cpf
+                + "\nEndereço: " + this.endereco + "\nQuarto: Quarto " + this.quarto + "\nEmail: " + this.email;
+    }
 
 }
