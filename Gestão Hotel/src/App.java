@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +19,6 @@ public class App {
 
         // new Cadastro().cadastrar(clientes, in);
         Cliente cl = new Cliente("admin", "123", "João", 19, "123", "123", "123");
-        cl.setQuarto(1);
         clientes.add(cl);
         
 

@@ -1,3 +1,6 @@
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Cliente {
 
     private String email;
@@ -8,6 +11,8 @@ public class Cliente {
     private String cpf;
     private String telefone;
     private int quarto;
+    private Calendar entrada;
+    private Calendar saida;
 
     public Cliente(String email, String senha, String nome, int idade, String endereco, String cpf, String telefone) {
         this.email = email;
@@ -17,6 +22,8 @@ public class Cliente {
         this.endereco = endereco;
         this.cpf = cpf;
         this.telefone = telefone;
+        this.entrada = new GregorianCalendar(0,0,0) ;
+        this.saida = new GregorianCalendar(0,0,0) ;
         this.quarto = 0;
     }
 
@@ -82,6 +89,22 @@ public class Cliente {
 
     public void setQuarto(int quarto) {
         this.quarto = quarto;
+    }
+
+    public Calendar getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(Calendar entrada) {
+        this.entrada = entrada;
+    }
+
+    public Calendar getSaida() {
+        return saida;
+    }
+
+    public void setSaida(Calendar saida) {
+        this.saida = saida;
     }
 
     @Override

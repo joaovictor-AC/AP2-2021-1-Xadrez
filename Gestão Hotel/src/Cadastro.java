@@ -52,7 +52,6 @@ public class Cadastro {
         clientes.add(cliente);
 
         System.out.println(cliente.toString());
-        System.out.println(clientes);
 
     }
 
