@@ -11,47 +11,50 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        Scanner in = new Scanner(System.in);
-        List<Cliente> clientes = new ArrayList<>(50);
+        LoginView frame = new LoginView();
 
-        String resp;
-        resp = null;
 
-        Cliente cl = new Cliente("admin", "123", "João", 19, "123", "123", "123");
-        clientes.add(cl);
+        // Scanner in = new Scanner(System.in);
+        // List<Cliente> clientes = new ArrayList<>(50);
+
+        // String resp;
+        // resp = null;
+
+        // Cliente cl = new Cliente("admin", "123", "João", 19, "123", "123", "123");
+        // clientes.add(cl);
         
 
-        while (resp != "s") {
+        // while (resp != "s") {
 
-            System.out.println("A - Cadastrar");
-            System.out.println("B - Login");
-            System.out.println("S - Sair");
+        //     System.out.println("A - Cadastrar");
+        //     System.out.println("B - Login");
+        //     System.out.println("S - Sair");
             
-            resp = in.nextLine().toLowerCase();
+        //     resp = in.nextLine().toLowerCase();
 
-            switch (resp) {
+        //     switch (resp) {
 
-                case "a":
-                    new Cadastro().cadastrar(clientes, in);
-                    break;
+        //         case "a":
+        //             new Cadastro().cadastrar(clientes, in);
+        //             break;
                 
-                case "b":
-                    new Login().login(clientes, in);
-                    break;
+        //         case "b":
+        //             new Login().login(clientes, in);
+        //             break;
 
-                case "s":
-                    resp = "s";
-                    break;
+        //         case "s":
+        //             resp = "s";
+        //             break;
 
-                default:
-                    System.out.println("Comando inválido!");
-                    break;
+        //         default:
+        //             System.out.println("Comando inválido!");
+        //             break;
 
-            }
+        //     }
 
-        }
+        // }
 
 
-        in.close();
+        // in.close();
     }
 }

@@ -13,8 +13,6 @@ public class Perfil {
 
         System.out.print("Nome: ");
         cl.setNome(in.nextLine());
-        System.out.print("Idade: ");
-        cl.setIdade(in.nextInt());
         System.out.print("CPF: ");
         in.nextLine();
         cl.setCpf(in.nextLine());

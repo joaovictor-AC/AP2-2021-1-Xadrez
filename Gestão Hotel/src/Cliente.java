@@ -6,7 +6,6 @@ public class Cliente {
     private String email;
     private String senha;
     private String nome;
-    private int idade;
     private String endereco;
     private String cpf;
     private String telefone;
@@ -14,11 +13,10 @@ public class Cliente {
     private Calendar entrada;
     private Calendar saida;
 
-    public Cliente(String email, String senha, String nome, int idade, String endereco, String cpf, String telefone) {
+    public Cliente(String email, String senha, String nome, String endereco, String cpf, String telefone) {
         this.email = email;
         this.senha = senha;
         this.nome = nome;
-        this.idade = idade;
         this.endereco = endereco;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -49,14 +47,6 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
     }
 
     public String getEndereco() {
@@ -109,7 +99,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Nome: " + this.nome + "\nIdade: " + this.idade + "\nTelefone: " + this.telefone + "\nCPF: " + this.cpf
+        return "Nome: " + this.nome + "\nTelefone: " + this.telefone + "\nCPF: " + this.cpf
                 + "\nEndereço: " + this.endereco + "\nQuarto: Quarto " + this.quarto + "\nEmail: " + this.email
                 + "\nEntrada: " + this.entrada.getTime() + "\nSaída: " + this.saida.getTime();
     }

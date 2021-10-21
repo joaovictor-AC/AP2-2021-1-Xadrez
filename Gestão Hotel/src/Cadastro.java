@@ -7,15 +7,11 @@ public class Cadastro {
         Cliente cliente;
         String nome, cpf, telefone, endereco, email, senha;
         email = "";
-        int idade;
         boolean email_correto;
         email_correto = false;
-        idade = 0;
 
         System.out.print("Nome: ");
         nome = in.nextLine();
-        System.out.print("Idade: ");
-        idade = in.nextInt();
         System.out.print("CPF: ");
         in.nextLine();
         cpf = in.nextLine();
@@ -48,7 +44,7 @@ public class Cadastro {
         System.out.print("Senha: ");
         senha = in.nextLine();
 
-        cliente = new Cliente(email, senha, nome, idade, endereco, cpf, telefone);
+        cliente = new Cliente(email, senha, nome, endereco, cpf, telefone);
         clientes.add(cliente);
     }
 
