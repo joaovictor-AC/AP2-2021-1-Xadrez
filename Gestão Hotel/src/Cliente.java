@@ -22,8 +22,8 @@ public class Cliente {
         this.endereco = endereco;
         this.cpf = cpf;
         this.telefone = telefone;
-        this.entrada = new GregorianCalendar(0,0,0) ;
-        this.saida = new GregorianCalendar(0,0,0) ;
+        this.entrada = new GregorianCalendar(0, 0, 0);
+        this.saida = new GregorianCalendar(0, 0, 0);
         this.quarto = 0;
     }
 
@@ -110,7 +110,8 @@ public class Cliente {
     @Override
     public String toString() {
         return "Nome: " + this.nome + "\nIdade: " + this.idade + "\nTelefone: " + this.telefone + "\nCPF: " + this.cpf
-                + "\nEndereço: " + this.endereco + "\nQuarto: Quarto " + this.quarto + "\nEmail: " + this.email;
+                + "\nEndereço: " + this.endereco + "\nQuarto: Quarto " + this.quarto + "\nEmail: " + this.email
+                + "\nEntrada: " + this.entrada.getTime() + "\nSaída: " + this.saida.getTime();
     }
 
 }

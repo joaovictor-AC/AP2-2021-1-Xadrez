@@ -17,7 +17,6 @@ public class App {
         String resp;
         resp = null;
 
-        // new Cadastro().cadastrar(clientes, in);
         Cliente cl = new Cliente("admin", "123", "João", 19, "123", "123", "123");
         clientes.add(cl);
         

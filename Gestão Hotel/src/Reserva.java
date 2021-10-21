@@ -7,52 +7,41 @@ public class Reserva {
 
     public void reservar(List<Cliente> clientes, Scanner in, Cliente cl) {
 
-        boolean quarto_encontrado;
-        quarto_encontrado = true;
-        int num;
-        num = 0;
         int quarto_escolhido;
         quarto_escolhido = 0;
 
-        while (quarto_encontrado) {
+        while (true) {
 
             quarto_escolhido = in.nextInt();
             in.nextLine();
-            for (Cliente cliente : clientes) {
 
-                if (cliente.getQuarto() == quarto_escolhido) {
-                    num = 1; // NÃO ESQUECE DE TROCAR O NUM
-                    break;
-                }
-
+            if (quarto_escolhido < 0 || quarto_escolhido > 50) {
+                System.out.println("Quarto inválido!");
+                continue;
             }
 
-            if (num == 2) {
-                System.out.println("Quarto já reservado!");
-                num = 0;
-            } else {
-                quarto_encontrado = false;
-            }
+            break;
+
         }
 
         cl.setQuarto(quarto_escolhido);
-        data(in, cl, clientes);
+        data(in, cl, clientes, quarto_escolhido);
 
     }
 
-    public void data(Scanner in, Cliente cl, List<Cliente> clientes) {
+    public void data(Scanner in, Cliente cl, List<Cliente> clientes, int quarto_escolhido) {
 
-        Calendar calendario1;
-        Calendar calendario2;
-        new GregorianCalendar();
-        Calendar data_atual = Calendar.getInstance();
+        boolean quarto_reservado;
+        quarto_reservado = false;
+        Calendar calendario1 = null;
+        Calendar calendario2 = null;
         String data, datas[];
         int dia, mes, ano;
         dia = 0;
         mes = 0;
         ano = 0;
 
-        while (true) {
+        while (!quarto_reservado) {
 
             System.out.println("Escolha a data de entrada(dd/mm/yyyy): ");
             data = in.nextLine();
@@ -74,35 +63,56 @@ public class Reserva {
             calendario2 = new GregorianCalendar(ano, mes, dia, 12, 0, 0);
             System.out.println(calendario2.getTime());
 
-            for (Cliente cliente : clientes) {
+            if (calendario2.after(calendario1)) {
 
-                if (cliente.getEntrada().compareTo(Calendar.getInstance()) < 0) {
-                    continue;
+                for (int i = 0; i < clientes.size(); i++) {
+
+                    if (clientes.get(i).getQuarto() == quarto_escolhido) {
+
+                        if (calendario1.getTime().after(new GregorianCalendar().getTime())) {
+
+                            if (condicao1(calendario1, calendario2, clientes.get(i))
+                                    || condicao2(calendario1, calendario2, clientes.get(i))) {
+
+                                if (i == clientes.size() - 1) {
+                                    System.out.println("Reserva Cadastrada!");
+                                    quarto_reservado = true;
+                                }
+
+                            } else {
+                                System.out.println("Data indisponível!");
+                                break;
+                            }
+                        } else {
+                            System.out.println("Datas inválidas!");
+                            break;
+                        }
+                    } else {
+                        if (i == clientes.size() - 1) {
+                            System.out.println("Reserva Cadastrada!");
+                            quarto_reservado = true;
+                        }
+                        continue;
+                    }
                 }
-                if (calendario1.compareTo(cliente.getSaida()) > 0 && calendario2.compareTo(cliente.getEntrada()) < 0) {
-
-                } else {
-                    System.out.println(cliente.getEntrada().getTime() + " - " + cliente.getSaida().getTime());
-                    System.out.println("Quarto indisponível!");
-                    break;
-                }
+            } else {
+                System.out.println("Datas inválidas!");
             }
 
-            if (calendario2.compareTo(calendario1) > 0) {
-                break;
-            }
-
-            if (calendario1.compareTo(Calendar.getInstance()) < 0) {
-                System.out.println("Data inválida!");
-                new Reserva().data(in, cl, clientes);
-            }
-
-            System.out.println("Datas inválidas!");
         }
 
         cl.setEntrada(calendario1);
         cl.setSaida(calendario2);
 
+    }
+
+    public boolean condicao1(Calendar calendario1, Calendar calendario2, Cliente cliente) {
+        return calendario1.after(cliente.getSaida()) && calendario2.after(cliente.getSaida());
+
+    }
+
+    public boolean condicao2(Calendar calendario1, Calendar calendario2, Cliente cliente) {
+        return calendario1.before(cliente.getEntrada()) && calendario2.before(cliente.getEntrada());
     }
 
 }

@@ -30,13 +30,14 @@ public class Perfil {
             System.out.print("Novo email: ");
             email = in.nextLine();
             if (clientes.size() == 0) {
-                email_correto = true;
+                break;
 
             } else {
                 for (int i = 0; i < clientes.size(); i++) {
 
                     if (clientes.get(i).getEmail().equals(email)) {
                         System.out.println("Email já cadastrado");
+                        email_correto = false;
                         break;
                     }
 

@@ -50,9 +50,6 @@ public class Cadastro {
 
         cliente = new Cliente(email, senha, nome, idade, endereco, cpf, telefone);
         clientes.add(cliente);
-
-        System.out.println(cliente.toString());
-
     }
 
 }
