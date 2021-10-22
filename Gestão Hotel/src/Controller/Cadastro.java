@@ -1,54 +1,49 @@
 package Controller;
+
 import java.util.List;
-import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Model.Cliente;
 
 public class Cadastro {
 
-    public void cadastrar(List<Cliente> clientes, Scanner in) {
-        Cliente cliente;
-        String nome, cpf, telefone, endereco, email, senha;
-        email = "";
-        boolean email_correto;
-        email_correto = false;
+    public boolean cadastrar(List<Cliente> clientes, Cliente cl) {
 
-        System.out.print("Nome: ");
-        nome = in.nextLine();
-        System.out.print("CPF: ");
-        in.nextLine();
-        cpf = in.nextLine();
-        System.out.print("Telefone: ");
-        telefone = in.nextLine();
-        System.out.print("Endereço: ");
-        endereco = in.nextLine();
 
-        while (!email_correto) {
+        if (emailValid(cl)) {
 
-            email_correto = true;
-
-            System.out.print("Email: ");
-            email = in.nextLine();
             if (clientes.size() == 0) {
-                email_correto = true;
-
+                clientes.add(cl);
+                return true;
             } else {
                 for (int i = 0; i < clientes.size(); i++) {
 
-                    if (clientes.get(i).getEmail().equals(email)) {
+                    if (clientes.get(i).getEmail().equals(cl.getEmail())) {
                         System.out.println("Email já cadastrado");
-                        break;
+                        return false;
                     }
 
                 }
             }
-
+        } else {
+            System.out.println("Email inválido");
+            return false;
         }
-        System.out.print("Senha: ");
-        senha = in.nextLine();
 
-        cliente = new Cliente(email, senha, nome, endereco, cpf, telefone);
-        clientes.add(cliente);
+        clientes.add(cl);
+        return true;
+
+    }
+
+    public boolean emailValid(Cliente cl) {
+
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(cl.getEmail());
+
+        return matcher.matches();
+
     }
 
 }

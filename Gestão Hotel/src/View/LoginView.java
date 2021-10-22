@@ -3,6 +3,9 @@ package View;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Model.Cliente;
+
 import javax.swing.JLabel;
 
 import java.awt.Color;
@@ -15,16 +18,28 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public final class LoginView extends Interface {
 
-    public LoginView() {
+    public LoginView(List<Cliente> arr) {
+        this.arr = arr;
         this.enterAction = new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Enter");
+                if (verificar()) {
+
+                    // if (new Login().login(clientes, in)) {
+
+                    // IR PARA A OUTRA PÁGINA
+
+                    // }
+
+                } else {
+                    System.out.println("Erro");
+                }
             }
 
         };
@@ -77,6 +92,22 @@ public final class LoginView extends Interface {
         panel.add(table);
 
         btnNewButton = new JButton("Entrar");
+        btnNewButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (verificar()) {
+
+                    // if (new Login().login(clientes, in)) {
+
+                    // IR PARA A OUTRA PÁGINA
+
+                    // }
+
+                } else {
+                    System.out.println("Erro");
+                }
+            }
+        });
         btnNewButton.setBounds(0, 126, 100, 25);
         panel.add(btnNewButton);
 
@@ -85,7 +116,7 @@ public final class LoginView extends Interface {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.setVisible(false);
-                new CadastroView().cadastrar();
+                new CadastroView(arr).cadastrar();
                 ;
             }
         });
@@ -94,6 +125,15 @@ public final class LoginView extends Interface {
         panel.add(lblNewLabel_3);
 
         frame.setVisible(true);
+    }
+
+    @Override
+    public boolean verificar() {
+        boolean validacao = textField.getText().equals("") || passwordField.getPassword().length == 0;
+        if (validacao)
+            return false;
+
+        return true;
     }
 
 }

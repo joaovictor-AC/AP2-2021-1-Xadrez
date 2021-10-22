@@ -8,13 +8,15 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Scanner;
 
+import Model.Cliente;
 import View.LoginView;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        LoginView frame = new LoginView();
+        List<Cliente> arr = new ArrayList<>();
 
+        new LoginView(arr).login();
 
         // Scanner in = new Scanner(System.in);
         // List<Cliente> clientes = new ArrayList<>(50);

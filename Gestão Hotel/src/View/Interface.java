@@ -7,9 +7,11 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 
+import java.util.List;
+
 import javax.swing.Action;
 import javax.swing.JButton;
-// import Model.Cliente;
+import Model.Cliente;
 
 public abstract class Interface {
 
@@ -32,10 +34,13 @@ public abstract class Interface {
     protected JLabel lblNewLabel_5;
     protected JLabel lblNewLabel_6;
     protected JButton btnNewButton;
-    // protected Cliente cliente;
+    protected Cliente cliente;
+    protected List<Cliente> arr;
 
     public Interface() {
         this.frame = new JFrame();
     }
+
+    protected abstract boolean verificar();
 
 }
