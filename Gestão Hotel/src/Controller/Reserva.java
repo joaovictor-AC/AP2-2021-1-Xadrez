@@ -1,7 +1,10 @@
+package Controller;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
+
+import Model.Cliente;
 
 public class Reserva {
 

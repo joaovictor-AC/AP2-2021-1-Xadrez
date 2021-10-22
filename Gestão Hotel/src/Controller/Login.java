@@ -1,5 +1,9 @@
+package Controller;
+
 import java.util.List;
 import java.util.Scanner;
+
+import Model.Cliente;
 
 public class Login {
 
@@ -17,7 +21,7 @@ public class Login {
 
         for (Cliente cliente : clientes) {
             if (email.equals(cliente.getEmail()) && senha.equals(cliente.getSenha())) {
-                conta_encontrada = true;    
+                conta_encontrada = true;
                 tela_1(clientes, in, cliente);
                 break;
             }
@@ -48,25 +52,25 @@ public class Login {
 
             switch (resp) {
 
-                case "a":
-                    new Reserva().reservar(clientes, in, cliente);
-                    break;
+            case "a":
+                new Reserva().reservar(clientes, in, cliente);
+                break;
 
-                case "b":
-                    new Perfil().editar(clientes, in, cliente);
-                    break;
+            case "b":
+                new Perfil().editar(clientes, in, cliente);
+                break;
 
-                case "c":
-                    System.out.println(cliente.toString());
-                    break;
+            case "c":
+                System.out.println(cliente.toString());
+                break;
 
-                case "s":
+            case "s":
                 resp = "s";
-                    break;
+                break;
 
-                default:
-                    System.out.println("Comando não encontrado!");
-                    break;
+            default:
+                System.out.println("Comando não encontrado!");
+                break;
 
             }
         }

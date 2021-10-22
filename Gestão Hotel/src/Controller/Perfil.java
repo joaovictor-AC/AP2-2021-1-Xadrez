@@ -1,6 +1,8 @@
-import java.util.ArrayList;
+package Controller;
 import java.util.List;
 import java.util.Scanner;
+
+import Model.Cliente;
 
 public class Perfil {
 
