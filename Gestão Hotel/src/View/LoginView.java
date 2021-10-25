@@ -8,6 +8,7 @@ import Controller.Login;
 import Model.Cliente;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -33,13 +34,15 @@ public final class LoginView extends Interface {
                 if (verificar()) {
                     String email = textField.getText();
                     String senha = getSenha();
+                    Cliente logCliente = new Login().login(arr, email, senha);
 
-                    if (new Login().login(arr, email, senha)) {
-                        mudarTela();
+                    if (logCliente != null) {
+                        mudarTela(logCliente);
                     }
 
                 } else {
-                    System.out.println("Erro");
+                    JOptionPane.showMessageDialog(new JFrame(), "É necessário preencher todos os espaços", "Erro",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -99,11 +102,15 @@ public final class LoginView extends Interface {
                 if (verificar()) {
                     String email = textField.getText();
                     String senha = getSenha();
+                    Cliente logCliente = new Login().login(arr, email, senha);
 
-                    if (new Login().login(arr, email, senha)) {
-                        System.out.println("DEU BOM");
+                    if (logCliente != null) {
+                        mudarTela(logCliente);
                     }
 
+                } else {
+                    JOptionPane.showMessageDialog(new JFrame(), "É necessário preencher todos os espaços", "Erro",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -126,9 +133,9 @@ public final class LoginView extends Interface {
         frame.setVisible(true);
     }
 
-    public void mudarTela() {
+    public void mudarTela(Cliente cliente) {
         frame.setVisible(false);
-        new PerfilView().perfil();
+        new PerfilView(arr, cliente).perfil();
     }
 
     @Override

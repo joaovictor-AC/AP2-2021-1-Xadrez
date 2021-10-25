@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.AbstractAction;
@@ -37,6 +38,9 @@ public final class CadastroView extends Interface {
 					if (new Cadastro().cadastrar(arr, cliente)) {
 						mudarTela();
 					}
+				} else {
+					JOptionPane.showMessageDialog(new JFrame(), "É necessário preencher todos os espaços", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -143,6 +147,9 @@ public final class CadastroView extends Interface {
 					if (new Cadastro().cadastrar(arr, cliente)) {
 						mudarTela();
 					}
+				} else {
+					JOptionPane.showMessageDialog(new JFrame(), "É necessário preencher todos os espaços", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -175,8 +182,8 @@ public final class CadastroView extends Interface {
 
 		StringBuilder password = new StringBuilder();
 		password.append(passwordField.getPassword());
-		Cliente cliente = new Cliente(textField_4.getText(), getSenha(), textField.getText(),
-				textField_2.getText(), textField_1.getText(), textField_3.getText());
+		Cliente cliente = new Cliente(textField_4.getText(), getSenha(), textField.getText(), textField_2.getText(),
+				textField_1.getText(), textField_3.getText());
 		return cliente;
 
 	}
