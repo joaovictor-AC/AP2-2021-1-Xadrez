@@ -14,9 +14,12 @@ import View.LoginView;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        List<Cliente> arr = new ArrayList<>();
+        List<Cliente> clientes = new ArrayList<>();
+        Cliente cl = new Cliente("admin", "123", "admin", "123", "123", "123");
+        clientes.add(cl);
 
-        new LoginView(arr).login();
+        new LoginView(clientes).login();
+
 
         // Scanner in = new Scanner(System.in);
         // List<Cliente> clientes = new ArrayList<>(50);
@@ -24,8 +27,6 @@ public class App {
         // String resp;
         // resp = null;
 
-        // Cliente cl = new Cliente("admin", "123", "João", 19, "123", "123", "123");
-        // clientes.add(cl);
         
 
         // while (resp != "s") {

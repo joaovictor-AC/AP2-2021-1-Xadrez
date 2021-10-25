@@ -34,6 +34,9 @@ public abstract class Interface {
     protected JLabel lblNewLabel_5;
     protected JLabel lblNewLabel_6;
     protected JButton btnNewButton;
+    protected JButton btnNewButton_1;
+    protected JButton btnNewButton_2;
+    protected JButton btnNewButton_3;
     protected Cliente cliente;
     protected List<Cliente> arr;
 
@@ -42,5 +45,6 @@ public abstract class Interface {
     }
 
     protected abstract boolean verificar();
+    protected abstract String getSenha();
 
 }

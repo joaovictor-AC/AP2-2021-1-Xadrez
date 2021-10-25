@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import Model.Cliente;
 
 public class Cadastro {
 
     public boolean cadastrar(List<Cliente> clientes, Cliente cl) {
-
+        JFrame frame = new JFrame();
 
         if (emailValid(cl)) {
 
@@ -27,7 +30,7 @@ public class Cadastro {
                 }
             }
         } else {
-            System.out.println("Email inválido");
+            JOptionPane.showMessageDialog(frame, "Email inválido", "ERRO", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 

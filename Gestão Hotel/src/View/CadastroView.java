@@ -155,7 +155,6 @@ public final class CadastroView extends Interface {
 	public void mudarTela() {
 		frame.setVisible(false);
 		new LoginView(arr).login();
-		;
 	}
 
 	@Override
@@ -167,7 +166,7 @@ public final class CadastroView extends Interface {
 
 		if (validacao)
 			return false;
-			
+
 		return true;
 
 	}
@@ -176,10 +175,23 @@ public final class CadastroView extends Interface {
 
 		StringBuilder password = new StringBuilder();
 		password.append(passwordField.getPassword());
-		Cliente cliente = new Cliente(textField_4.getText(), password.toString(), textField.getText(),
+		Cliente cliente = new Cliente(textField_4.getText(), getSenha(), textField.getText(),
 				textField_2.getText(), textField_1.getText(), textField_3.getText());
 		return cliente;
 
+	}
+
+	@Override
+	protected String getSenha() {
+
+		StringBuilder sb = new StringBuilder();
+
+		for (char letra : passwordField.getPassword()) {
+			sb.append(letra);
+
+		}
+
+		return sb.toString();
 	}
 
 }

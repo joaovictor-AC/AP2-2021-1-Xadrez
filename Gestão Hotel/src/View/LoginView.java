@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controller.Login;
 import Model.Cliente;
 
 import javax.swing.JLabel;
@@ -30,12 +31,12 @@ public final class LoginView extends Interface {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (verificar()) {
+                    String email = textField.getText();
+                    String senha = getSenha();
 
-                    // if (new Login().login(clientes, in)) {
-
-                    // IR PARA A OUTRA PÁGINA
-
-                    // }
+                    if (new Login().login(arr, email, senha)) {
+                        mudarTela();
+                    }
 
                 } else {
                     System.out.println("Erro");
@@ -96,15 +97,13 @@ public final class LoginView extends Interface {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (verificar()) {
+                    String email = textField.getText();
+                    String senha = getSenha();
 
-                    // if (new Login().login(clientes, in)) {
+                    if (new Login().login(arr, email, senha)) {
+                        System.out.println("DEU BOM");
+                    }
 
-                    // IR PARA A OUTRA PÁGINA
-
-                    // }
-
-                } else {
-                    System.out.println("Erro");
                 }
             }
         });
@@ -127,6 +126,11 @@ public final class LoginView extends Interface {
         frame.setVisible(true);
     }
 
+    public void mudarTela() {
+        frame.setVisible(false);
+        new PerfilView().perfil();
+    }
+
     @Override
     public boolean verificar() {
         boolean validacao = textField.getText().equals("") || passwordField.getPassword().length == 0;
@@ -136,4 +140,16 @@ public final class LoginView extends Interface {
         return true;
     }
 
+    @Override
+    protected String getSenha() {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (char letra : passwordField.getPassword()) {
+            sb.append(letra);
+
+        }
+
+        return sb.toString();
+    }
 }
