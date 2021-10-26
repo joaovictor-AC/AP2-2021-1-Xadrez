@@ -11,10 +11,31 @@ import Model.Cliente;
 
 public class Cadastro {
 
-    public boolean cadastrar(List<Cliente> clientes, Cliente cl) {
-        JFrame frame = new JFrame();
+    private JFrame frame;
+    private String regex;
+    private Pattern pattern;
+    private Matcher matcher;
 
-        if (emailValid(cl)) {
+    public Cadastro() {
+        this.frame = new JFrame();
+    }
+
+    public boolean cadastrar(List<Cliente> clientes, Cliente cl) {
+
+        boolean validacao = emailValid(cl, clientes, frame) && numeroValid(cl.getCpf(), clientes, frame, "CPF inválido")
+                && numeroValid(cl.getTelefone(), clientes, frame, "Telefone inválido");
+
+        return validacao;
+
+    }
+
+    public boolean emailValid(Cliente cl, List<Cliente> clientes, JFrame frame) {
+
+        regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        pattern = Pattern.compile(regex);
+        matcher = pattern.matcher(cl.getEmail());
+
+        if (matcher.matches()) {
 
             if (clientes.size() == 0) {
                 clientes.add(cl);
@@ -22,8 +43,8 @@ public class Cadastro {
             } else {
                 for (int i = 0; i < clientes.size(); i++) {
 
-                    if (clientes.get(i).getEmail().equals(cl.getEmail())) {
-                        System.out.println("Email já cadastrado");
+                    if (clientes.get(i).getEmail().equals(cl.getEmail()) && clientes.get(i) != cl) {
+                        JOptionPane.showMessageDialog(frame, "Email já cadastrado", "ERRO", JOptionPane.ERROR_MESSAGE);
                         return false;
                     }
 
@@ -34,18 +55,21 @@ public class Cadastro {
             return false;
         }
 
-        clientes.add(cl);
         return true;
 
     }
 
-    public boolean emailValid(Cliente cl) {
+    public boolean numeroValid(String num, List<Cliente> clientes, JFrame frame, String mensagem) {
+        regex = "\\s+|[A-Za-z]+";
+        pattern = Pattern.compile(regex);
+        matcher = pattern.matcher(num);
 
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(cl.getEmail());
+        if (matcher.find()) {
+            JOptionPane.showMessageDialog(frame, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-        return matcher.matches();
+        return true;
 
     }
 

@@ -35,7 +35,9 @@ public final class CadastroView extends Interface {
 
 				if (verificar()) {
 					cliente = criarCliente();
-					if (new Cadastro().cadastrar(arr, cliente)) {
+					boolean cadastro = new Cadastro().cadastrar(arr, cliente);
+					if (cadastro) {
+						arr.add(cliente);
 						mudarTela();
 					}
 				} else {
