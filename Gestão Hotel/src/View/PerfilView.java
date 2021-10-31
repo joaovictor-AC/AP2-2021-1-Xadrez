@@ -96,7 +96,7 @@ public class PerfilView extends Interface {
 
         if (cliente.isAdmin()) {
 
-            btnNewButton_4 = new JButton("Ver clientes");
+            btnNewButton_4 = new JButton("Visualizar clientes");
             btnNewButton_4.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
