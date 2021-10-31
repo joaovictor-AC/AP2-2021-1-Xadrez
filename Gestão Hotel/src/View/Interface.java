@@ -1,16 +1,16 @@
 package View;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JTable;
-
 import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 import Model.Cliente;
 
 public abstract class Interface {
@@ -37,6 +37,7 @@ public abstract class Interface {
     protected JButton btnNewButton_1;
     protected JButton btnNewButton_2;
     protected JButton btnNewButton_3;
+    protected JButton btnNewButton_4;
     protected Cliente cliente;
     protected List<Cliente> arr;
 
