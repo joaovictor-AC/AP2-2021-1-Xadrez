@@ -11,7 +11,7 @@ import Model.Cliente;
 
 public class Cadastro {
 
-    private JFrame frame;
+    protected JFrame frame;
     private String regex;
     private Pattern pattern;
     private Matcher matcher;

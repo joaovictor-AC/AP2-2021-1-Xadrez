@@ -23,7 +23,7 @@ import Model.Cliente;
 
 import java.awt.event.ActionEvent;
 
-public final class CadastroView extends Interface {
+public class CadastroView extends Interface {
 
 	public CadastroView(List<Cliente> arr) {
 

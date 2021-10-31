@@ -13,6 +13,7 @@ public class Cliente {
     private int quarto;
     private Calendar entrada;
     private Calendar saida;
+    private boolean admin;
 
     public Cliente(String email, String senha, String nome, String endereco, String cpf, String telefone) {
         this.email = email;
@@ -24,6 +25,15 @@ public class Cliente {
         this.entrada = new GregorianCalendar(0, 0, 0);
         this.saida = new GregorianCalendar(0, 0, 0);
         this.quarto = 0;
+        this.admin = false;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public String getEmail() {
