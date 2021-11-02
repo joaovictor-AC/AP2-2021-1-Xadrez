@@ -8,20 +8,27 @@ import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.event.ActionEvent;
 
 import Controller.Cadastro;
+import Controller.Reserva;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 
 import Model.Cliente;
 
@@ -33,6 +40,8 @@ public class PerfilView extends Interface {
         this.enterAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                System.out.println("OK");
 
                 if (verificar()) {
 
@@ -64,6 +73,7 @@ public class PerfilView extends Interface {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.setVisible(false);
+                reservas_entrada();
 
             }
         });
@@ -87,7 +97,7 @@ public class PerfilView extends Interface {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.setVisible(false);
-                editarPerfil(cliente);
+                visualizarPerfil(cliente);
 
             }
         });
@@ -102,12 +112,11 @@ public class PerfilView extends Interface {
                 public void mouseClicked(MouseEvent e) {
                     frame.setVisible(false);
                     editarPerfil(cliente);
-    
+
                 }
             });
             btnNewButton_4.setBounds(40, 160, 150, 20);
             contentPane.add(btnNewButton_4);
-    
 
         }
 
@@ -126,6 +135,91 @@ public class PerfilView extends Interface {
         contentPane.add(btnNewButton);
 
         frame.setVisible(true);
+    }
+
+    public void reservas_entrada() {
+
+        int ano;
+        ano = Calendar.getInstance().get(Calendar.YEAR);
+
+        SpinnerNumberModel model_dia, model_mes, model_ano, model_quarto;
+        model_dia = new SpinnerNumberModel(1, 1, 31, 1);
+        model_mes = new SpinnerNumberModel(1, 1, 12, 1);
+        model_ano = new SpinnerNumberModel(ano, ano, 3000, 1);
+        model_quarto = new SpinnerNumberModel(1, 1, 50, 1);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100, 100, 450, 300);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        frame.setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        panel = new JPanel();
+        panel.setBounds(5, 64, 400, 200);
+        contentPane.add(panel);
+        panel.setLayout(null);
+
+        JLabel lblNewLabel = new JLabel("Reservas");
+        lblNewLabel.setBounds(5, 5, 426, 43);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
+        contentPane.add(lblNewLabel);
+
+        lblNewLabel_1 = new JLabel("Dia:");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_1.setBounds(5, 20, 70, 15);
+        panel.add(lblNewLabel_1);
+
+        spinner = new JSpinner();
+        spinner.setBounds(80, 20, 80, 20);
+        spinner.setModel(model_dia);
+        panel.add(spinner);
+
+        lblNewLabel_2 = new JLabel("Mês:");
+        lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_2.setBounds(5, 70, 70, 15);
+        panel.add(lblNewLabel_2);
+
+        spinner_1 = new JSpinner();
+        spinner_1.setBounds(80, 70, 80, 20);
+        spinner_1.setModel(model_mes);
+        panel.add(spinner_1);
+
+        lblNewLabel_3 = new JLabel("Ano:");
+        lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_3.setBounds(5, 120, 70, 15);
+        panel.add(lblNewLabel_3);
+
+        spinner_2 = new JSpinner();
+        spinner_2.setBounds(80, 120, 80, 20);
+        spinner_2.setModel(model_ano);
+        panel.add(spinner_2);
+
+        lblNewLabel_4 = new JLabel("Quarto:");
+        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_4.setBounds(200, 20, 70, 15);
+        panel.add(lblNewLabel_4);
+
+        spinner_3 = new JSpinner();
+        spinner_3.setBounds(275, 20, 80, 20);
+        spinner_3.setModel(model_quarto);
+        panel.add(spinner_3);
+
+        btnNewButton = new JButton("Reservar");
+        btnNewButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.setVisible(false);
+                alterarCliente_entrada();
+                reservas_saida();
+            }
+        });
+        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnNewButton.setBounds(300, 150, 100, 25);
+        panel.add(btnNewButton);
+
+        frame.setVisible(true);
+
     }
 
     public void visualizarPerfil(Cliente cliente) {
@@ -149,14 +243,14 @@ public class PerfilView extends Interface {
 
         lblNewLabel_1 = new JLabel("Nome: " + cliente.getNome());
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_1.setBounds(5, 5, 450, 15);
+        lblNewLabel_1.setBounds(5, 0, 450, 15);
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
         lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
         panel.add(lblNewLabel_1);
 
         lblNewLabel_2 = new JLabel("CPF: " + cliente.getCpf());
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_2.setBounds(5, 30, 450, 15);
+        lblNewLabel_2.setBounds(5, 20, 450, 15);
         panel.add(lblNewLabel_2);
 
         table = new JTable();
@@ -165,18 +259,28 @@ public class PerfilView extends Interface {
 
         lblNewLabel_3 = new JLabel("Endere\u00E7o: " + cliente.getEndereco());
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_3.setBounds(5, 55, 450, 15);
+        lblNewLabel_3.setBounds(5, 40, 450, 15);
         panel.add(lblNewLabel_3);
 
         lblNewLabel_4 = new JLabel("Telefone: " + cliente.getTelefone());
         lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_4.setBounds(5, 80, 450, 15);
+        lblNewLabel_4.setBounds(5, 60, 450, 15);
         panel.add(lblNewLabel_4);
 
         lblNewLabel_5 = new JLabel("Email: " + cliente.getEmail());
         lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_5.setBounds(5, 105, 450, 15);
+        lblNewLabel_5.setBounds(5, 80, 450, 15);
         panel.add(lblNewLabel_5);
+
+        lblNewLabel_6 = new JLabel("Data: " + new SimpleDateFormat("dd/MM/yyyy").format(cliente.getEntrada().getTime()) + " - " + new SimpleDateFormat("dd/MM/yyyy").format(cliente.getSaida().getTime()));
+        lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel_6.setBounds(5, 100, 450, 15);
+        panel.add(lblNewLabel_6);
+
+        lblNewLabel_7 = new JLabel("Quarto: " + cliente.getQuarto());
+        lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel_7.setBounds(5, 120, 450, 15);
+        panel.add(lblNewLabel_7);
 
         btnNewButton = new JButton("Voltar");
         btnNewButton.addMouseListener(new MouseAdapter() {
@@ -192,6 +296,7 @@ public class PerfilView extends Interface {
         frame.setVisible(true);
 
     }
+
 
     public void editarPerfil(Cliente cliente) {
 
@@ -325,6 +430,28 @@ public class PerfilView extends Interface {
 
     }
 
+    public void alterarCliente_entrada() {
+        int ano, mes, dia, quarto;
+        ano = Integer.parseInt(spinner_2.getValue().toString());
+        mes = Integer.parseInt(spinner_1.getValue().toString());
+        dia = Integer.parseInt(spinner.getValue().toString());
+        quarto = Integer.parseInt(spinner_3.getValue().toString());
+        cliente.setEntrada(new GregorianCalendar(ano, --mes, dia));
+        cliente.setQuarto(quarto);
+        System.out.println(cliente.getEntrada().getTime());
+
+    }
+
+    public void alterarCliente_saida() {
+        int ano, mes, dia;
+        ano = Integer.parseInt(spinner_2.getValue().toString());
+        mes = Integer.parseInt(spinner_1.getValue().toString());
+        dia = Integer.parseInt(spinner.getValue().toString());
+        cliente.setSaida(new GregorianCalendar(ano, --mes, dia));
+        System.out.println(cliente.getSaida().getTime());
+
+    }
+
     @Override
     protected boolean verificar() {
 
@@ -351,4 +478,84 @@ public class PerfilView extends Interface {
         return sb.toString();
     }
 
+    public void reservas_saida() {
+
+        int ano;
+        ano = Calendar.getInstance().get(Calendar.YEAR);
+
+        SpinnerNumberModel model_dia, model_mes, model_ano;
+        model_dia = new SpinnerNumberModel(1, 1, 31, 1);
+        model_mes = new SpinnerNumberModel(1, 1, 12, 1);
+        model_ano = new SpinnerNumberModel(ano, ano, 3000, 1);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100, 100, 450, 300);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        frame.setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        panel = new JPanel();
+        panel.setBounds(5, 64, 400, 200);
+        contentPane.add(panel);
+        panel.setLayout(null);
+
+        JLabel lblNewLabel = new JLabel("Reservas");
+        lblNewLabel.setBounds(5, 5, 426, 43);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
+        contentPane.add(lblNewLabel);
+
+        lblNewLabel_1 = new JLabel("Dia:");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_1.setBounds(5, 20, 70, 15);
+        panel.add(lblNewLabel_1);
+
+        spinner = new JSpinner();
+        spinner.setBounds(80, 20, 80, 20);
+        spinner.setModel(model_dia);
+        panel.add(spinner);
+
+        lblNewLabel_2 = new JLabel("Mês:");
+        lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_2.setBounds(5, 70, 70, 15);
+        panel.add(lblNewLabel_2);
+
+        spinner_1 = new JSpinner();
+        spinner_1.setBounds(80, 70, 80, 20);
+        spinner_1.setModel(model_mes);
+        panel.add(spinner_1);
+
+        lblNewLabel_3 = new JLabel("Ano:");
+        lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_3.setBounds(5, 120, 70, 15);
+        panel.add(lblNewLabel_3);
+
+        spinner_2 = new JSpinner();
+        spinner_2.setBounds(80, 120, 80, 20);
+        spinner_2.setModel(model_ano);
+        panel.add(spinner_2);
+
+        btnNewButton = new JButton("Reservar");
+        btnNewButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                alterarCliente_saida();
+                if (new Reserva().reservar(arr, cliente)) {
+                    frame.setVisible(false);
+                    perfil();
+                } else {
+                    JOptionPane.showMessageDialog(new JFrame(), "Datas inválidas", "Erro", JOptionPane.ERROR_MESSAGE);
+                    frame.setVisible(false);
+                    reservas_entrada();
+                }
+
+            }
+        });
+        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnNewButton.setBounds(300, 150, 100, 25);
+        panel.add(btnNewButton);
+
+        frame.setVisible(true);
+
+    }
 }

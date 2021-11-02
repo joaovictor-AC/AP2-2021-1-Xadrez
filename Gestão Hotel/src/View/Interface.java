@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -33,11 +34,16 @@ public abstract class Interface {
     protected JLabel lblNewLabel_4;
     protected JLabel lblNewLabel_5;
     protected JLabel lblNewLabel_6;
+    protected JLabel lblNewLabel_7;
     protected JButton btnNewButton;
     protected JButton btnNewButton_1;
     protected JButton btnNewButton_2;
     protected JButton btnNewButton_3;
     protected JButton btnNewButton_4;
+    protected JSpinner spinner;
+    protected JSpinner spinner_1;
+    protected JSpinner spinner_2;
+    protected JSpinner spinner_3;
     protected Cliente cliente;
     protected List<Cliente> arr;
 
