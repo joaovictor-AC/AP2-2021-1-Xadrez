@@ -51,7 +51,39 @@ public abstract class Interface {
         this.frame = new JFrame();
     }
 
-    protected abstract boolean verificar();
-    protected abstract String getSenha();
+    protected Cliente criarCliente() {
+
+        StringBuilder password = new StringBuilder();
+        password.append(passwordField.getPassword());
+        Cliente cliente = new Cliente(textField_4.getText(), getSenha(), textField.getText(), textField_2.getText(),
+                textField_1.getText(), textField_3.getText());
+        return cliente;
+
+    }
+
+    protected boolean verificar() {
+
+        boolean validacao = textField.getText().equals("") || textField_1.getText().equals("")
+                || textField_2.getText().equals("") || textField_3.getText().equals("")
+                || textField_4.getText().equals("") || passwordField.getPassword().length == 0;
+
+        if (validacao)
+            return false;
+
+        return true;
+
+    }
+
+    protected String getSenha() {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (char letra : passwordField.getPassword()) {
+            sb.append(letra);
+
+        }
+
+        return sb.toString();
+    }
 
 }

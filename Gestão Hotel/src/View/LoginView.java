@@ -147,16 +147,4 @@ public final class LoginView extends Interface {
         return true;
     }
 
-    @Override
-    protected String getSenha() {
-
-        StringBuilder sb = new StringBuilder();
-
-        for (char letra : passwordField.getPassword()) {
-            sb.append(letra);
-
-        }
-
-        return sb.toString();
-    }
 }

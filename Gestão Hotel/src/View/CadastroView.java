@@ -166,20 +166,6 @@ public class CadastroView extends Interface {
 		new LoginView(arr).login();
 	}
 
-	@Override
-	public boolean verificar() {
-
-		boolean validacao = textField.getText().equals("") || textField_1.getText().equals("")
-				|| textField_2.getText().equals("") || textField_3.getText().equals("")
-				|| textField_4.getText().equals("") || passwordField.getPassword().length == 0;
-
-		if (validacao)
-			return false;
-
-		return true;
-
-	}
-
 	public Cliente criarCliente() {
 
 		StringBuilder password = new StringBuilder();
@@ -188,19 +174,6 @@ public class CadastroView extends Interface {
 				textField_1.getText(), textField_3.getText());
 		return cliente;
 
-	}
-
-	@Override
-	protected String getSenha() {
-
-		StringBuilder sb = new StringBuilder();
-
-		for (char letra : passwordField.getPassword()) {
-			sb.append(letra);
-
-		}
-
-		return sb.toString();
 	}
 
 }
