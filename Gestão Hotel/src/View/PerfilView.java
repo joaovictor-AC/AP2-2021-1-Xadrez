@@ -511,7 +511,7 @@ public class PerfilView extends Interface {
         String[][] datas = {};
         datas = arrList.toArray(datas);
         table = new JTable(datas, colunas);
-        frame.add(table);
+        frame.add(new JScrollPane(table));
 
         frame.setVisible(true);
 
