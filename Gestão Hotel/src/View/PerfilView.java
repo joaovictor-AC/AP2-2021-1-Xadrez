@@ -22,6 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import java.awt.event.ActionEvent;
 
@@ -30,7 +34,9 @@ import Controller.Reserva;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import Model.Cliente;
 
@@ -45,7 +51,7 @@ public class PerfilView extends Interface {
         this.arr = arr;
         this.cliente = cliente;
         this.data_atual = Calendar.getInstance();
-        this.model_dia = new SpinnerNumberModel(Calendar.getInstance().get(Calendar.DATE), 1, 31, 1);
+        this.model_dia = new SpinnerNumberModel(Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 31, 1);
         this.model_mes = new SpinnerNumberModel(Calendar.getInstance().get(Calendar.MONTH) + 1, 1, 12, 1);
         this.model_ano = new SpinnerNumberModel(Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.YEAR), 3000, 1);
@@ -81,17 +87,36 @@ public class PerfilView extends Interface {
         frame.setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        btnNewButton_2 = new JButton((cliente.getQuarto() == 0) ? "Reservar um quarto" : "Editar reserva");
-        btnNewButton_2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                frame.setVisible(false);
-                reservas_entrada();
+        if (!cliente.isAdmin()) {
 
-            }
-        });
-        btnNewButton_2.setBounds(40, 40, 150, 20);
-        contentPane.add(btnNewButton_2);
+            btnNewButton_2 = new JButton((cliente.getQuarto() == 0) ? "Reservar um quarto" : "Editar reserva");
+            btnNewButton_2.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    frame.setVisible(false);
+                    reservas_entrada();
+
+                }
+
+            });
+            btnNewButton_2.setBounds(40, 40, 150, 20);
+            contentPane.add(btnNewButton_2);
+
+        } else {
+
+            btnNewButton_2 = new JButton("Visualizar clientes");
+            btnNewButton_2.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    frame.setVisible(false);
+                    verClientes();
+
+                }
+
+            });
+            btnNewButton_2.setBounds(40, 40, 150, 20);
+            contentPane.add(btnNewButton_2);
+        }
 
         btnNewButton_3 = new JButton("Visualizar perfil");
         btnNewButton_3.addMouseListener(new MouseAdapter() {
@@ -118,18 +143,6 @@ public class PerfilView extends Interface {
         contentPane.add(btnNewButton_1);
 
         if (cliente.isAdmin()) {
-
-            btnNewButton_4 = new JButton("Visualizar clientes");
-            btnNewButton_4.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    frame.setVisible(false);
-                    verClientes();
-
-                }
-            });
-            btnNewButton_4.setBounds(40, 160, 150, 20);
-            contentPane.add(btnNewButton_4);
 
         }
 
@@ -166,7 +179,7 @@ public class PerfilView extends Interface {
         contentPane.add(panel);
         panel.setLayout(null);
 
-        JLabel lblNewLabel = new JLabel("Reservas");
+        lblNewLabel = new JLabel("Entrada");
         lblNewLabel.setBounds(5, 5, 426, 43);
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
         contentPane.add(lblNewLabel);
@@ -242,7 +255,7 @@ public class PerfilView extends Interface {
         contentPane.add(panel);
         panel.setLayout(null);
 
-        JLabel lblNewLabel = new JLabel("Reservas");
+        JLabel lblNewLabel = new JLabel("Saída");
         lblNewLabel.setBounds(5, 5, 426, 43);
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
         contentPane.add(lblNewLabel);
@@ -284,6 +297,9 @@ public class PerfilView extends Interface {
                 alterarCliente_saida();
                 frame.setVisible(false);
                 if (new Reserva().reservar(arr, cliente, data_atual)) {
+                    cliente.setPreco(getEstadia());
+                    JOptionPane.showMessageDialog(new JFrame(), "Sua estadia ficou em " + cliente.getPreco(), "Erro",
+                            JOptionPane.INFORMATION_MESSAGE);
                     perfil();
                 } else {
                     reservas_entrada();
@@ -495,22 +511,47 @@ public class PerfilView extends Interface {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 450, 300);
-        
-        String[] colunas = {"Nome", "Quarto", "Data de Entrada", "Data de saída"};
+
+        String[] colunas = { "Nome", "Quarto", "Data de Entrada", "Data de saída", "Estadia" };
         List<String[]> arrList = new ArrayList<>();
 
         for (Cliente cl : this.arr) {
             if (!cl.isAdmin()) {
-                String[] clAtributos = { cl.getNome(), Integer.toString(cl.getQuarto()),
-                        new SimpleDateFormat("dd/MM/yyyy").format(cl.getEntrada().getTime()).toString(),
-                        new SimpleDateFormat("dd/MM/yyyy").format(cl.getSaida().getTime()).toString()};
+                String[] clAtributos = { cl.getNome(),
+                        (cl.getQuarto() == 0) ? "Nenhum quarto cadastrado" : Integer.toString(cl.getQuarto()),
+                        (cl.getEntrada().equals(new GregorianCalendar(0, 0, 0))) ? "Nenhuma data cadastrada"
+                                : new SimpleDateFormat("dd/MM/yyyy").format(cl.getEntrada().getTime()).toString(),
+                        (cl.getEntrada().equals(new GregorianCalendar(0, 0, 0))) ? "Nenhuma data cadastrada"
+                                : new SimpleDateFormat("dd/MM/yyyy").format(cl.getSaida().getTime()).toString(),
+                        (cl.getPreco().equals("0")) ? "Sem valor" : cl.getPreco() };
                 arrList.add(clAtributos);
             }
         }
 
         String[][] datas = {};
         datas = arrList.toArray(datas);
-        table = new JTable(datas, colunas);
+        JTable table = new JTable(datas, colunas);
+
+        DefaultTableModel model = new DefaultTableModel(datas, colunas);
+        table.setRowSorter(new TableRowSorter<>(model));
+
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String nome = table.getValueAt(table.getSelectedRow(), 0).toString();
+
+                for (Cliente cl : arr) {
+
+                    if (cl.getNome().equals(nome)) {
+                        frame.setVisible(false);
+                        visualizarPerfil(cl);
+                    }
+
+                }
+            }
+
+        });
+
         frame.add(new JScrollPane(table));
 
         frame.setVisible(true);
@@ -544,11 +585,17 @@ public class PerfilView extends Interface {
         ano = Integer.parseInt(spinner_2.getValue().toString());
         mes = Integer.parseInt(spinner_1.getValue().toString());
         dia = Integer.parseInt(spinner.getValue().toString());
-        int horas = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        int minutos = Calendar.getInstance().get(Calendar.MINUTE);
-        int segundos = Calendar.getInstance().get(Calendar.SECOND);
-        cliente.setSaida(new GregorianCalendar(ano, --mes, dia, horas, minutos, segundos));
+        cliente.setSaida(new GregorianCalendar(ano, --mes, dia, 12, 0, 0));
 
+    }
+
+    public String getEstadia() {
+        LocalDate l1 = LocalDate.of(cliente.getEntrada().get(Calendar.YEAR),
+                cliente.getEntrada().get(Calendar.MONTH) + 1, cliente.getEntrada().get(Calendar.DAY_OF_MONTH));
+        LocalDate l2 = LocalDate.of(cliente.getSaida().get(Calendar.YEAR), cliente.getSaida().get(Calendar.MONTH) + 1,
+                cliente.getSaida().get(Calendar.DAY_OF_MONTH));
+        long days = l1.datesUntil(l2).count();
+        return NumberFormat.getCurrencyInstance().format(days * 80).toString();
     }
 
 }

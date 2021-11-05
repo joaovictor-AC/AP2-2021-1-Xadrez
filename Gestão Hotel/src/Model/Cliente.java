@@ -1,4 +1,5 @@
 package Model;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -14,6 +15,7 @@ public class Cliente {
     private Calendar entrada;
     private Calendar saida;
     private boolean admin;
+    private String preco;
 
     public Cliente(String email, String senha, String nome, String endereco, String cpf, String telefone) {
         this.email = email;
@@ -26,6 +28,15 @@ public class Cliente {
         this.saida = new GregorianCalendar(0, 0, 0);
         this.quarto = 0;
         this.admin = false;
+        this.preco = "0";
+    }
+
+    public String getPreco() {
+        return preco;
+    }
+
+    public void setPreco(String preco) {
+        this.preco = preco;
     }
 
     public boolean isAdmin() {
@@ -110,9 +121,9 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Nome: " + this.nome + "\nTelefone: " + this.telefone + "\nCPF: " + this.cpf
-                + "\nEndereço: " + this.endereco + "\nQuarto: Quarto " + this.quarto + "\nEmail: " + this.email
-                + "\nEntrada: " + this.entrada.getTime() + "\nSaída: " + this.saida.getTime();
+        return "Nome: " + this.nome + "\nTelefone: " + this.telefone + "\nCPF: " + this.cpf + "\nEndereço: "
+                + this.endereco + "\nQuarto: Quarto " + this.quarto + "\nEmail: " + this.email + "\nEntrada: "
+                + this.entrada.getTime() + "\nSaída: " + this.saida.getTime();
     }
 
 }
