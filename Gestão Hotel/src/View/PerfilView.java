@@ -237,6 +237,17 @@ public class PerfilView extends Interface {
         btnNewButton.setBounds(300, 150, 100, 25);
         panel.add(btnNewButton);
 
+        btnNewButton_1 = new JButton("Voltar");
+        btnNewButton_1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.setVisible(false);
+                perfil();
+            }
+        });
+        btnNewButton_1.setBounds(190, 150, 100, 25);
+        panel.add(btnNewButton_1);
+
         frame.setVisible(true);
 
     }
@@ -318,7 +329,7 @@ public class PerfilView extends Interface {
     public void visualizarPerfil(Cliente cliente) {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, 450, 300);
+        frame.setBounds(100, 100, 500, 300);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         frame.setContentPane(contentPane);
@@ -330,20 +341,20 @@ public class PerfilView extends Interface {
         contentPane.add(lblNewLabel);
 
         panel = new JPanel();
-        panel.setBounds(5, 64, 400, 200);
+        panel.setBounds(5, 64, 500, 200);
         contentPane.add(panel);
         panel.setLayout(null);
 
         lblNewLabel_1 = new JLabel("Nome: " + cliente.getNome());
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_1.setBounds(5, 0, 450, 15);
+        lblNewLabel_1.setBounds(5, 0, 500, 15);
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
         lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
         panel.add(lblNewLabel_1);
 
         lblNewLabel_2 = new JLabel("CPF: " + cliente.getCpf());
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_2.setBounds(5, 20, 450, 15);
+        lblNewLabel_2.setBounds(5, 20, 500, 15);
         panel.add(lblNewLabel_2);
 
         table = new JTable();
@@ -352,17 +363,17 @@ public class PerfilView extends Interface {
 
         lblNewLabel_3 = new JLabel("Endere\u00E7o: " + cliente.getEndereco());
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_3.setBounds(5, 40, 450, 15);
+        lblNewLabel_3.setBounds(5, 40, 500, 15);
         panel.add(lblNewLabel_3);
 
         lblNewLabel_4 = new JLabel("Telefone: " + cliente.getTelefone());
         lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_4.setBounds(5, 60, 450, 15);
+        lblNewLabel_4.setBounds(5, 60, 500, 15);
         panel.add(lblNewLabel_4);
 
         lblNewLabel_5 = new JLabel("Email: " + cliente.getEmail());
         lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_5.setBounds(5, 80, 450, 15);
+        lblNewLabel_5.setBounds(5, 80, 500, 15);
         panel.add(lblNewLabel_5);
 
         lblNewLabel_6 = new JLabel(
@@ -370,13 +381,13 @@ public class PerfilView extends Interface {
                         : "Data: " + new SimpleDateFormat("dd/MM/yyyy").format(cliente.getEntrada().getTime()) + " - "
                                 + new SimpleDateFormat("dd/MM/yyyy").format(cliente.getSaida().getTime())));
         lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_6.setBounds(5, 100, 450, 15);
+        lblNewLabel_6.setBounds(5, 100, 500, 15);
         panel.add(lblNewLabel_6);
 
         lblNewLabel_7 = new JLabel(
                 (cliente.getQuarto() == 0) ? "Quarto: Nenhum quarto reservado" : "Quarto: " + cliente.getQuarto());
         lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_7.setBounds(5, 120, 450, 15);
+        lblNewLabel_7.setBounds(5, 120, 500, 15);
         panel.add(lblNewLabel_7);
 
         btnNewButton = new JButton("Voltar");
@@ -404,12 +415,12 @@ public class PerfilView extends Interface {
         contentPane.setLayout(null);
 
         lblNewLabel = new JLabel("Editar perfil:");
-        lblNewLabel.setBounds(5, 5, 426, 43);
+        lblNewLabel.setBounds(5, 5, 430, 43);
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
         contentPane.add(lblNewLabel);
 
         panel = new JPanel();
-        panel.setBounds(5, 64, 400, 200);
+        panel.setBounds(5, 64, 430, 200);
         contentPane.add(panel);
         panel.setLayout(null);
 
@@ -500,8 +511,22 @@ public class PerfilView extends Interface {
                 }
             }
         });
+
+        
         btnNewButton.setBounds(0, 165, 100, 25);
         panel.add(btnNewButton);
+
+        btnNewButton_1 = new JButton("Voltar");
+        btnNewButton_1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.setVisible(false);
+                perfil();
+            }
+        });
+        btnNewButton_1.setBounds(325, 165, 100, 25);
+        panel.add(btnNewButton_1);
+
         frame.setVisible(true);
 
     }
@@ -510,7 +535,7 @@ public class PerfilView extends Interface {
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, 450, 300);
+        frame.setBounds(100, 100, 800, 300);
 
         String[] colunas = { "Nome", "Quarto", "Data de Entrada", "Data de saída", "Estadia" };
         List<String[]> arrList = new ArrayList<>();
@@ -558,7 +583,7 @@ public class PerfilView extends Interface {
 
     }
 
-    public void alterarCliente() {
+    protected void alterarCliente() {
         cliente.setEmail(textField_4.getText());
         cliente.setSenha(getSenha());
         cliente.setNome(textField.getText());
@@ -568,7 +593,7 @@ public class PerfilView extends Interface {
 
     }
 
-    public void alterarCliente_entrada() {
+    protected void alterarCliente_entrada() {
         ano = Integer.parseInt(spinner_2.getValue().toString());
         mes = Integer.parseInt(spinner_1.getValue().toString());
         dia = Integer.parseInt(spinner.getValue().toString());
@@ -581,7 +606,7 @@ public class PerfilView extends Interface {
 
     }
 
-    public void alterarCliente_saida() {
+    protected void alterarCliente_saida() {
         ano = Integer.parseInt(spinner_2.getValue().toString());
         mes = Integer.parseInt(spinner_1.getValue().toString());
         dia = Integer.parseInt(spinner.getValue().toString());
@@ -589,7 +614,7 @@ public class PerfilView extends Interface {
 
     }
 
-    public String getEstadia() {
+    protected String getEstadia() {
         LocalDate l1 = LocalDate.of(cliente.getEntrada().get(Calendar.YEAR),
                 cliente.getEntrada().get(Calendar.MONTH) + 1, cliente.getEntrada().get(Calendar.DAY_OF_MONTH));
         LocalDate l2 = LocalDate.of(cliente.getSaida().get(Calendar.YEAR), cliente.getSaida().get(Calendar.MONTH) + 1,

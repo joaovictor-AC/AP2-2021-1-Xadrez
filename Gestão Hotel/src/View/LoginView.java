@@ -37,7 +37,8 @@ public final class LoginView extends Interface {
                     Cliente logCliente = new Login().login(arr, email, senha);
 
                     if (logCliente != null) {
-                        mudarTela(logCliente);
+                        frame.setVisible(false);
+                        new PerfilView(arr, logCliente).perfil();
                     }
 
                 } else {
@@ -105,7 +106,8 @@ public final class LoginView extends Interface {
                     Cliente logCliente = new Login().login(arr, email, senha);
 
                     if (logCliente != null) {
-                        mudarTela(logCliente);
+                        frame.setVisible(false);
+                        new PerfilView(arr, logCliente).perfil();
                     }
 
                 } else {
@@ -133,13 +135,8 @@ public final class LoginView extends Interface {
         frame.setVisible(true);
     }
 
-    public void mudarTela(Cliente cliente) {
-        frame.setVisible(false);
-        new PerfilView(arr, cliente).perfil();
-    }
-
     @Override
-    public boolean verificar() {
+    protected boolean verificar() {
         boolean validacao = textField.getText().equals("") || passwordField.getPassword().length == 0;
         if (validacao)
             return false;
