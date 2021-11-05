@@ -38,7 +38,8 @@ public class CadastroView extends Interface {
 					boolean cadastro = new Cadastro().cadastrar(arr, cliente);
 					if (cadastro) {
 						arr.add(cliente);
-						mudarTela();
+						frame.setVisible(false);
+						new LoginView(arr).login();
 					}
 				} else {
 					JOptionPane.showMessageDialog(new JFrame(), "É necessário preencher todos os espaços", "Erro",
@@ -147,7 +148,8 @@ public class CadastroView extends Interface {
 				if (verificar()) {
 					cliente = criarCliente();
 					if (new Cadastro().cadastrar(arr, cliente)) {
-						mudarTela();
+						frame.setVisible(false);
+						new LoginView(arr).login();
 					}
 				} else {
 					JOptionPane.showMessageDialog(new JFrame(), "É necessário preencher todos os espaços", "Erro",
@@ -161,12 +163,7 @@ public class CadastroView extends Interface {
 		frame.setVisible(true);
 	}
 
-	public void mudarTela() {
-		frame.setVisible(false);
-		new LoginView(arr).login();
-	}
-
-	public Cliente criarCliente() {
+	protected Cliente criarCliente() {
 
 		StringBuilder password = new StringBuilder();
 		password.append(passwordField.getPassword());
