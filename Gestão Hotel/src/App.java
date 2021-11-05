@@ -1,4 +1,3 @@
-import java.sql.Date;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -94,8 +93,7 @@ public class App {
         clientes.add(cl8);
         clientes.add(cl9);
         clientes.add(cl10);
-
-
+          
         return clientes;
 
     }
